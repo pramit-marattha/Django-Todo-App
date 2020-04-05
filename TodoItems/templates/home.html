@@ -1,0 +1,52 @@
+{%  extends 'TodoMain.html' %}
+
+{%  block content %}
+    {%  if messages %}
+    {%  for message in messages %}
+    <div class="alert alert-warning alert-dismissable" role="alert">
+    <button class="close" data-dismiss = 'alert'>
+        <small><sup>Close it</sup></small>
+    </button>
+    {{ message }}
+    </div>
+    {% endfor %}
+
+{% endif %}
+    {%  if all_items %}
+<br>
+
+        <h1>Todo List</h1>
+         <br>
+
+
+
+        <table class ="table table-bordered table-dark">
+        {%  for things in all_items %}
+            {%  if things.completed %}
+                   <tr class ="table-secondary">
+                       <td class="colorChange"><a href="{% url 'edit' things.id %}">{{ things.item }}</a></td>
+                       <td><center><a href=" {%  url 'uncross' things.id %}">not completed</a></center></td>
+                       <td><a href="{% url 'delete' things.id %}"> Delete </a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td><a href="{% url 'edit' things.id %}">{{ things.item }}</a></td>
+                       <td><center><a href=" {%  url 'cross_off' things.id %}">Completed!</a></center></td>
+                    <td><a href="{% url 'delete' things.id %}"> Delete </a></td>
+                </tr>
+
+
+
+            {% endif %}
+        {%  endfor %}
+        </table>
+    {% endif %}
+
+
+
+
+
+
+
+
+{%  endblock %}
